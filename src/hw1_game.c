@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
     int size = (int)strtoul(argv[1], NULL, 10);
     if (!initialize_board(argv[2], argv[3], size)) {
         printf("Invalid initial board state.\n");
-        exit(1);
+        return 0;
     }
     char input [20];
     int piece;
