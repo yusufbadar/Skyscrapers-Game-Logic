@@ -10,6 +10,12 @@ int bottom_key[MAX_LENGTH] = {0};
 int left_key[MAX_LENGTH] = {0};
 int right_key[MAX_LENGTH] = {0};
 
+
+bool checkRowDuplicates(int size);
+bool checkColDuplicates(int size);
+bool checkFilledRow(int size);
+bool checkFilledCol(int size);
+
 char board[MAX_LENGTH][MAX_LENGTH] = {0};
 
 int length = 5;
