@@ -29,6 +29,7 @@ int main(int argc, char **argv) {
     int size = (int)strtoul(argv[1], NULL, 10);
     if (!initialize_board(argv[2], argv[3], size)) {
         printf("Invalid initial board state.\n");
+        exit(1);
     }
     char input [20];
     int piece;
@@ -43,7 +44,7 @@ int main(int argc, char **argv) {
                 printf("Choose a piece (1-%d) or q to quit: ", size);
                 firstPiece = 0;
             } else {
-                printf("Invalid choice. Choose a piece (1 - %d) or q to quit: ", size);
+                printf("Invalid choice. Choose a piece (1-%d) or q to quit: ", size);
             }
             scanf("%19s", input);
             if (input[0] == 'q' || input[0] == 'Q') {
@@ -120,8 +121,8 @@ int main(int argc, char **argv) {
             if (!filled) break;
         }
         if (filled) {
-            printBoard(size);
             printf("Congratulations, you have filled the board!\n");
+            printBoard(size);
             break;
         }
     }
