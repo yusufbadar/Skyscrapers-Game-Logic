@@ -634,7 +634,7 @@ void colSequenceHelper(int col, int size, bool constraintsList[MAX_SIZE][MAX_SIZ
 		return;
 	}
 	for(int value = 1; value <= size; value++) {
-		if (!constraintsList[col][pos][value]) {
+		if (!constraintsList[pos][col][value]) {
 			continue;
 		}
 		if(used[value]) {
