@@ -587,20 +587,16 @@ int filterRowSequences(int row, int size, bool constraintsList[MAX_SIZE][MAX_SIZ
 bool collectRow(int row, int size, int validCount, bool constraintsList[MAX_SIZE][MAX_SIZE][MAX_SIZE+1]) {
 	bool different = false;
 	for (int col = 0; col < size; col++) {
-		bool intersection[MAX_SIZE+1];
+		bool appear[MAX_SIZE+1];
 		for (int k = 1; k <= size; k++) {
-			intersection[k] = true;
+			appear[k] = true;
 		}
 		for(int i = 0; i < validCount; i++) {
 			int candidate = rowPerms[i][col];
-			for (int j = 1; j <= size; j++) {
-				if (j!= candidate) {
-					intersection[j] = false;
-				}
-			}
+			appear[candidate] = false;
 		}
 		for (int p = 1; p <= size; p++) {
-			if (constraintsList[row][col][p] && !intersection[p]) {
+			if (constraintsList[row][col][p] && !appear[p]) {
 				constraintsList[row][col][p] = false;
 				different = true;
 			}
@@ -683,24 +679,19 @@ int filterColSequences(int col, int size, bool constraintsList[MAX_SIZE][MAX_SIZ
 bool collectCol(int col, int size, int validCount, bool constraintsList[MAX_SIZE][MAX_SIZE][MAX_SIZE+1]) {
 	bool different = false;
 	for (int row = 0; row < size; row++) {
-		bool intersection[MAX_SIZE+1];
-		if (validCount > 0){
-			for (int k = 1; k <= size; k++) {
-				intersection[k] = (colPerms[0][row == k]);
-			}
-		} else {
-			for (int k = 1; k <= size; k++) {
-				intersection[k] = false;
-			}
+		bool appear[MAX_SIZE+1];
+		for (int k = 1; k <= size; k++) {
+			appear[k] = false;
 		}
-		for(int i = 1; i < validCount; i++) {
-			for (int k = 1; k <= size; k++) {
-				intersection[k] = intersection[k] && (colPerms[i][row] == k);
-			}
+
+		for (int i = 1; i <= validCount; i++) {
+			int candidate = colPerms[i][row];
+			appear[candidate] = true;
 		}
-		for (int p = 1; p <= size; p++) {
-			if (constraintsList[row][col][p] && !intersection[p]) {
-				constraintsList[row][col][p] = false;
+
+		for (int k = 1; k <= size; k++) {
+			if (constraintsList[row][col][k] && !appear[k]) {
+				constraintsList[row][col][k] = false;
 				different = true;
 			}
 		}
