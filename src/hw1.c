@@ -695,7 +695,7 @@ bool collectCol(int col, int size, int validCount, bool constraintsList[MAX_SIZE
 		}
 		for(int i = 1; i < validCount; i++) {
 			for (int k = 1; k <= size; k++) {
-				intersection[k] = intersection[k] && (colPerms[i][row] == k)
+				intersection[k] = intersection[k] && (colPerms[i][row] == k);
 			}
 		}
 		for (int p = 1; p <= size; p++) {
