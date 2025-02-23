@@ -684,15 +684,18 @@ bool collectCol(int col, int size, int validCount, bool constraintsList[MAX_SIZE
 	bool different = false;
 	for (int row = 0; row < size; row++) {
 		bool intersection[MAX_SIZE+1];
-		for (int k = 1; k <= size; k++) {
-			intersection[k] = true;
+		if (validCount > 0){
+			for (int k = 1; k <= size; k++) {
+				intersection[k] = (colPerms[0][row == k]);
+			}
+		} else {
+			for (int k = 1; k <= size; k++) {
+				intersection[k] = false;
+			}
 		}
-		for(int i = 0; i < validCount; i++) {
-			int candidate = colPerms[i][row];
-			for (int j = 1; j <= size; j++) {
-				if (j!= candidate) {
-					intersection[j] = false;
-				}
+		for(int i = 1; i < validCount; i++) {
+			for (int k = 1; k <= size; k++) {
+				intersection[k] = intersection[k] && (colPerms[i][row] == k);
 			}
 		}
 		for (int p = 1; p <= size; p++) {
