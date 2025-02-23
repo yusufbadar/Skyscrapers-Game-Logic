@@ -585,26 +585,25 @@ int filterRowSequences(int row, int size, bool constraintsList[MAX_SIZE][MAX_SIZ
 }
 
 bool collectRow(int row, int size, int validCount, bool constraintsList[MAX_SIZE][MAX_SIZE][MAX_SIZE+1]) {
-    bool different = false;
-    for (int col = 0; col < size; col++) {
-        bool appear[MAX_SIZE+1];
-        for (int k = 1; k <= size; k++) {
-            appear[k] = false;
-        }
-        for (int i = 0; i < validCount; i++) {
-            int candidate = rowPerms[i][col];
-            appear[candidate] = true;
-        }
-        for (int k = 1; k <= size; k++) {
-            if (constraintsList[row][col][k] && !appear[k]) {
-                constraintsList[row][col][k] = false;
-                different = true;
-            }
-        }
-    }
-    return different;
+	bool different = false;
+	for (int col = 0; col < size; col++) {
+		bool appear[MAX_SIZE+1];
+		for (int k = 1; k <= size; k++) {
+			appear[k] = false;
+		}
+		for(int i = 0; i < validCount; i++) {
+			int candidate = rowPerms[i][col];
+			appear[candidate] = true;
+		}
+		for (int p = 1; p <= size; p++) {
+			if (constraintsList[row][col][p] && !appear[p]) {
+				constraintsList[row][col][p] = false;
+				different = true;
+			}
+		}
+	}
+	return different;
 }
-
 
 bool clueEliminationRow(int row, int size, bool constraintsList[MAX_SIZE][MAX_SIZE][MAX_SIZE+1]) {
 	int left = left_key[row];
@@ -678,26 +677,25 @@ int filterColSequences(int col, int size, bool constraintsList[MAX_SIZE][MAX_SIZ
 }
 
 bool collectCol(int col, int size, int validCount, bool constraintsList[MAX_SIZE][MAX_SIZE][MAX_SIZE+1]) {
-    bool different = false;
-    for (int row = 0; row < size; row++) {
-        bool appear[MAX_SIZE+1];
-        for (int k = 1; k <= size; k++) {
-            appear[k] = false;
-        }
-        for (int i = 0; i < validCount; i++) {
-            int candidate = colPerms[i][row];
-            appear[candidate] = true;
-        }
-        for (int k = 1; k <= size; k++) {
-            if (constraintsList[row][col][k] && !appear[k]) {
-                constraintsList[row][col][k] = false;
-                different = true;
-            }
-        }
-    }
-    return different;
+	bool different = false;
+	for (int row = 0; row < size; row++) {
+		bool appear[MAX_SIZE+1];
+		for (int k = 1; k <= size; k++) {
+			appear[k] = false;
+		}
+		for (int i = 0; i < validCount; i++) {
+			int candidate = colPerms[i][row];
+			appear[candidate] = true;
+		}
+		for (int p = 1; p <= size; p++) {
+			if (constraintsList[row][col][p] && !appear[p]) {
+				constraintsList[row][col][p] = false;
+				different = true;
+			}
+		}
+	}
+	return different;
 }
-
 
 bool clueEliminationCol(int col, int size, bool constraintsList[MAX_SIZE][MAX_SIZE][MAX_SIZE+1]) {
 	int top = top_key[col];
